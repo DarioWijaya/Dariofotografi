@@ -1,118 +1,10 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dario — Professional Portfolio & Photography</title>
   <style>
-  
-  /* ===================================================
-   1. ANIMASI BORDER GRADIENT (PRO & ELEGANT)
-   =================================================== */
-@keyframes borderGlow {
-  0% {
-    border-color: rgba(226, 183, 20, 0.4);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(226, 183, 20, 0.1);
-  }
-  50% {
-    border-color: rgba(56, 189, 248, 0.6);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.25);
-  }
-  100% {
-    border-color: rgba(226, 183, 20, 0.4);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(226, 183, 20, 0.1);
-  }
-}
-
-/* Terapkan animasi border halus pada Kartu Foto */
-.photo-card {
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
-  animation: borderGlow 6s infinite ease-in-out;
-}
-
-/* Efek Hover: Kartu sedikit terangkat dan border menyala terang */
-.photo-card:hover {
-  transform: translateY(-6px) scale(1.01);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.4);
-  border-color: var(--accent-cyan) !important;
-}
-
-/* Border Animasi Lingkaran untuk Foto Profil */
-.profile-img {
-  animation: profileBorderPulse 4s infinite alternate ease-in-out;
-  transition: transform 0.3s ease;
-}
-
-@keyframes profileBorderPulse {
-  0% {
-    box-shadow: 0 0 15px rgba(226, 183, 20, 0.3);
-    border-color: var(--accent-gold);
-  }
-  100% {
-    box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
-    border-color: var(--accent-cyan);
-  }
-}
-
-.profile-img:hover {
-  transform: scale(1.05) rotate(2deg);
-}
-
-/* ===================================================
-   2. ANIMASI SAAT DIKLIK (CLICK / RIPPLE FEEDBACK)
-   =================================================== */
-
-/* Animasi Membal (Bounce/Click) saat Tombol atau Gambar Ditekan */
-.btn:active, 
-.photo-wrapper:active, 
-.profile-img:active {
-  transform: scale(0.95) !important;
-  transition: transform 0.1s ease-out;
-}
-
-/* Efek Ripple (Gelombang Air) pada Gambar saat Diklik */
-.photo-wrapper, .btn {
-  position: relative;
-  overflow: hidden;
-}
-
-.ripple-effect {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  transform: scale(0);
-  animation: ripple 0.6s linear;
-  pointer-events: none;
-}
-
-@keyframes ripple {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
-// Menambahkan Efek Gelombang (Ripple) Saat Diklik
-document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element => {
-  element.addEventListener('click', function (e) {
-    const circle = document.createElement('span');
-    const diameter = Math.max(this.clientWidth, this.clientHeight);
-    const radius = diameter / 2;
-
-    const rect = this.getBoundingClientRect();
-    circle.style.width = circle.style.height = `${diameter}px`;
-    circle.style.left = `${e.clientX - rect.left - radius}px`;
-    circle.style.top = `${e.clientY - rect.top - radius}px`;
-    circle.classList.add('ripple-effect');
-
-    const ripple = this.querySelector('.ripple-effect');
-    if (ripple) {
-      ripple.remove();
-    }
-
-    this.appendChild(circle);
-  });
-});
-
     /* RESET & DASAR */
     *, *::before, *::after {
       box-sizing: border-box;
@@ -125,6 +17,7 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
       --card-bg: #141824;
       --accent-gold: #e2b714;
       --accent-cyan: #38bdf8;
+      --accent-pink: #f472b6;
       --text-main: #f1f5f9;
       --text-muted: #94a3b8;
       --border: rgba(255, 255, 255, 0.08);
@@ -137,12 +30,172 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
       line-height: 1.6;
       padding: 30px 16px;
       overflow-x: hidden;
+      position: relative;
     }
 
     .container {
       max-width: 850px;
       margin: 0 auto;
       width: 100%;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===================================================
+       ANIMASI LATAR BELAKANG BERGERAK (LUCU & UNIK)
+       =================================================== */
+    .bg-bubbles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.25;
+      animation: floatAround 18s infinite ease-in-out alternate;
+    }
+
+    .bubble-1 {
+      width: 300px;
+      height: 300px;
+      background: var(--accent-cyan);
+      top: 10%;
+      left: -50px;
+      animation-duration: 14s;
+    }
+
+    .bubble-2 {
+      width: 250px;
+      height: 250px;
+      background: var(--accent-gold);
+      bottom: 20%;
+      right: -40px;
+      animation-duration: 18s;
+      animation-delay: -3s;
+    }
+
+    .bubble-3 {
+      width: 200px;
+      height: 200px;
+      background: var(--accent-pink);
+      top: 55%;
+      left: 30%;
+      animation-duration: 16s;
+      animation-delay: -7s;
+    }
+
+    .bubble-4 {
+      width: 180px;
+      height: 180px;
+      background: #818cf8;
+      top: 5%;
+      right: 15%;
+      animation-duration: 20s;
+      animation-delay: -5s;
+    }
+
+    @keyframes floatAround {
+      0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+      }
+      33% {
+        transform: translate(60px, -80px) scale(1.15) rotate(120deg);
+      }
+      66% {
+        transform: translate(-40px, 60px) scale(0.9) rotate(240deg);
+      }
+      100% {
+        transform: translate(40px, 30px) scale(1.05) rotate(360deg);
+      }
+    }
+
+    /* ===================================================
+       1. ANIMASI BORDER GRADIENT
+       =================================================== */
+    @keyframes borderGlow {
+      0% {
+        border-color: rgba(226, 183, 20, 0.4);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(226, 183, 20, 0.1);
+      }
+      50% {
+        border-color: rgba(56, 189, 248, 0.6);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.25);
+      }
+      100% {
+        border-color: rgba(226, 183, 20, 0.4);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(226, 183, 20, 0.1);
+      }
+    }
+
+    .photo-card {
+      transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+      animation: borderGlow 6s infinite ease-in-out;
+      backdrop-filter: blur(10px);
+    }
+
+    .photo-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.4);
+      border-color: var(--accent-cyan) !important;
+    }
+
+    .profile-img {
+      animation: profileBorderPulse 4s infinite alternate ease-in-out;
+      transition: transform 0.3s ease;
+    }
+
+    @keyframes profileBorderPulse {
+      0% {
+        box-shadow: 0 0 15px rgba(226, 183, 20, 0.3);
+        border-color: var(--accent-gold);
+      }
+      100% {
+        box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
+        border-color: var(--accent-cyan);
+      }
+    }
+
+    .profile-img:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    /* ===================================================
+       2. ANIMASI SAAT DIKLIK (RIPPLE FEEDBACK)
+       =================================================== */
+    .btn:active, 
+    .photo-wrapper:active, 
+    .profile-img:active {
+      transform: scale(0.95) !important;
+      transition: transform 0.1s ease-out;
+    }
+
+    .photo-wrapper, .btn {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ripple-effect {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+      pointer-events: none;
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
     }
 
     /* HEADER & PROFIL */
@@ -194,6 +247,7 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
       padding: 24px;
       margin-bottom: 40px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
     }
 
     .info-title {
@@ -364,7 +418,7 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
       line-height: 1.6;
     }
 
-    /* LAYOUT TAMPILAN DESKTOP (> 640px) */
+    /* LAYOUT DESKTOP (> 640px) */
     @media (min-width: 640px) {
       .photo-card {
         flex-direction: row;
@@ -390,6 +444,38 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
       }
     }
 
+    /* POP-UP MODAL ZOOM */
+    .modal-zoom {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-zoom img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.8);
+      object-fit: contain;
+      transition: transform 0.1s ease;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px; right: 20px;
+      color: #fff;
+      font-size: 35px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 10000;
+    }
+
     /* FOOTER */
     footer {
       text-align: center;
@@ -402,6 +488,14 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
   </style>
 </head>
 <body>
+
+  <!-- ELEMEN BUBBLE ANIMASI LATAR BELAKANG -->
+  <div class="bg-bubbles">
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+  </div>
 
   <div class="container">
     
@@ -480,7 +574,7 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
       </div>
 
       <!-- FOTO 3 -->
-      <div class="photo-card ">
+      <div class="photo-card">
         <div class="photo-wrapper">
           <img src="1000311967.jpg" alt="Tarian Keemasan">
         </div>
@@ -494,7 +588,7 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
       </div>
 
       <!-- FOTO 4 -->
-      <div class="photo-card ">
+      <div class="photo-card">
         <div class="photo-wrapper">
           <img src="1000312308.jpg" alt="Penerbang Harapan">
         </div>
@@ -508,9 +602,10 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
       </div>
 
       <!-- FOTO 5 -->
-      <div class="photo-card ">
+      <div class="photo-card">
         <div class="photo-wrapper">
-          <img src="1000312297.jpg" alt="Gambar">
+          <img src="1000312297.jpg" alt="Kamuflase Sunyi">
+        </div>
         <div class="photo-details">
           <div class="photo-tag">Wildlife / Macro</div>
           <h3 class="photo-title">Kamuflase Sunyi</h3>
@@ -521,7 +616,7 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
       </div>
 
       <!-- FOTO 6 -->
-      <div class="photo-card ">
+      <div class="photo-card">
         <div class="photo-wrapper">
           <img src="1000309530.jpg" alt="Kolaborasi Tanpa Batas">
         </div>
@@ -535,7 +630,7 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
       </div>
 
       <!-- FOTO 7 -->
-      <div class="photo-card ">
+      <div class="photo-card">
         <div class="photo-wrapper">
           <img src="1000312307.jpg" alt="Tatapan Zamrud">
         </div>
@@ -549,7 +644,7 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
       </div>
 
       <!-- FOTO 8 -->
-      <div class="photo-card ">
+      <div class="photo-card">
         <div class="photo-wrapper">
           <img src="1000312309.jpg" alt="Petunjuk dalam Sunyi">
         </div>
@@ -563,7 +658,7 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
       </div>
 
       <!-- FOTO 9 -->
-      <div class="photo-card ">
+      <div class="photo-card">
         <div class="photo-wrapper">
           <img src="burung.jpg.jpeg.jpg" alt="Selingan di Atas Besi">
         </div>
@@ -575,89 +670,89 @@ document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element 
           </p>
         </div>
       </div>
-<div class="photo-card ">
+
+      <!-- FOTO 10 -->
+      <div class="photo-card">
         <div class="photo-wrapper">
-          <img src="sungai.jpg" alt=" ketenagan di sebuah sungai yang deras ">
+          <img src="sungai.jpg" alt="Ketenangan di sebuah sungai yang deras">
         </div>
         <div class="photo-details">
           <div class="photo-tag">Water / Wildlife</div>
-          <h3 class=" ketenangan di sebuah sungai yang deras "</h3>
+          <h3 class="photo-title">Ketenangan di sebuah sungai yang deras</h3>
           <p class="photo-desc">
-            ketenagan tidak bisa di gambarkan hanya dengan cerita tetapi harus di rasakan dan di lihat secara langsung 
+            ketenagan tidak bisa di gambarkan hanya dengan cerita tetapi harus di rasakan dan di lihat secara langsung
           </p>
         </div>
       </div>
+
     </main>
 
+    <footer>
+      <p>&copy; Dario. All Rights Reserved.</p>
+    </footer>
+
   </div>
-<!-- KODE CSS TAMBAHAN UNTUK POP-UP MODAL (Tempel di dalam tag <style>) -->
-<style>
-  .modal-zoom {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(5px);
-  }
 
-  .modal-zoom img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 8px;
-    box-shadow: 0 0 25px rgba(0,0,0,0.8);
-    object-fit: contain;
-    transition: transform 0.1s ease;
-  }
+  <!-- POP-UP MODAL ZOOM -->
+  <div id="modalZoom" class="modal-zoom">
+    <span class="close-modal">&times;</span>
+    <img id="imgZoomFull" src="" alt="Zoomed Photo">
+  </div>
 
-  .close-modal {
-    position: absolute;
-    top: 15px; right: 20px;
-    color: #fff;
-    font-size: 35px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 10000;
-  }
-</style>
+  <!-- JAVASCRIPT LENGKAP -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      
+      // 1. Fitur Ripple Click
+      document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element => {
+        element.addEventListener('click', function (e) {
+          const circle = document.createElement('span');
+          const diameter = Math.max(this.clientWidth, this.clientHeight);
+          const radius = diameter / 2;
 
-<!-- KODE JAVASCRIPT BISA ZOOM SEMUA FOTO (Tempel tepat sebelum tag </body>) -->
-<div id="modalZoom" class="modal-zoom">
-  <span class="close-modal">&times;</span>
-  <img id="imgZoomFull" src="" alt="Zoomed Photo">
-</div>
+          const rect = this.getBoundingClientRect();
+          circle.style.width = circle.style.height = `${diameter}px`;
+          circle.style.left = `${e.clientX - rect.left - radius}px`;
+          circle.style.top = `${e.clientY - rect.top - radius}px`;
+          circle.classList.add('ripple-effect');
 
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const modal = document.getElementById("modalZoom");
-    const modalImg = document.getElementById("imgZoomFull");
-    const closeBtn = document.querySelector(".close-modal");
+          const existingRipple = this.querySelector('.ripple-effect');
+          if (existingRipple) {
+            existingRipple.remove();
+          }
 
-    // Mengambil SELURUH gambar di dalam halaman (Profil + Galeri)
-    const allImages = document.querySelectorAll("img");
+          this.appendChild(circle);
 
-    allImages.forEach(img => {
-      // Abaikan jika gambar adalah elemen dalam modal itu sendiri
-      if (img.id === "imgZoomFull") return;
-
-      img.style.cursor = "pointer";
-      img.addEventListener("click", function () {
-        modal.style.display = "flex";
-        modalImg.src = this.src;
+          setTimeout(() => {
+            circle.remove();
+          }, 600);
+        });
       });
-    });
 
-    // Menutup modal saat tombol 'X' atau area luar foto diklik
-    closeBtn.addEventListener("click", () => modal.style.display = "none");
-    modal.addEventListener("click", (e) => {
-      if (e.target !== modalImg) modal.style.display = "none";
+      // 2. Fitur Modal Image Zoom
+      const modal = document.getElementById("modalZoom");
+      const modalImg = document.getElementById("imgZoomFull");
+      const closeBtn = document.querySelector(".close-modal");
+
+      const allImages = document.querySelectorAll("img");
+
+      allImages.forEach(img => {
+        if (img.id === "imgZoomFull") return;
+
+        img.style.cursor = "pointer";
+        img.addEventListener("click", function () {
+          modal.style.display = "flex";
+          modalImg.src = this.src;
+        });
+      });
+
+      closeBtn.addEventListener("click", () => modal.style.display = "none");
+      modal.addEventListener("click", (e) => {
+        if (e.target !== modalImg) modal.style.display = "none";
+      });
+
     });
-  });
-  
-</script>
+  </script>
 
 </body>
 </html>
