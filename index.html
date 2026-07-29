@@ -1,16 +1,12 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dario — Professional Portfolio & Photography</title>
+  <title>Dario — Portfolio & Photography</title>
   <style>
     /* RESET & DASAR */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg-dark: #0a0c10;
@@ -26,475 +22,124 @@
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.5;
       padding: 30px 16px;
       overflow-x: hidden;
-      position: relative;
     }
 
     .container {
       max-width: 850px;
       margin: 0 auto;
-      width: 100%;
       position: relative;
       z-index: 2;
     }
 
-    /* ===================================================
-       ANIMASI LATAR BELAKANG BERGERAK (LUCU & UNIK)
-       =================================================== */
+    /* OPTIMASI ANIMASI BACKGROUND: Hapus filter:blur (Bikin Lag), gunakan Radial Gradient */
     .bg-bubbles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-      overflow: hidden;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1; pointer-events: none; overflow: hidden;
     }
-
     .bubble {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(40px);
-      opacity: 0.25;
-      animation: floatAround 18s infinite ease-in-out alternate;
+      position: absolute; border-radius: 50%; opacity: 0.15;
+      animation: floatAround 15s infinite ease-in-out alternate;
+      transform: translateZ(0); /* Akselerasi GPU */
     }
-
-    .bubble-1 {
-      width: 300px;
-      height: 300px;
-      background: var(--accent-cyan);
-      top: 10%;
-      left: -50px;
-      animation-duration: 14s;
-    }
-
-    .bubble-2 {
-      width: 250px;
-      height: 250px;
-      background: var(--accent-gold);
-      bottom: 20%;
-      right: -40px;
-      animation-duration: 18s;
-      animation-delay: -3s;
-    }
-
-    .bubble-3 {
-      width: 200px;
-      height: 200px;
-      background: var(--accent-pink);
-      top: 55%;
-      left: 30%;
-      animation-duration: 16s;
-      animation-delay: -7s;
-    }
-
-    .bubble-4 {
-      width: 180px;
-      height: 180px;
-      background: #818cf8;
-      top: 5%;
-      right: 15%;
-      animation-duration: 20s;
-      animation-delay: -5s;
-    }
+    .bubble-1 { width: 350px; height: 350px; background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%); top: 10%; left: -10%; }
+    .bubble-2 { width: 300px; height: 300px; background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%); bottom: 20%; right: -10%; animation-delay: -3s; }
+    .bubble-3 { width: 250px; height: 250px; background: radial-gradient(circle, var(--accent-pink) 0%, transparent 70%); top: 50%; left: 20%; animation-delay: -7s; }
 
     @keyframes floatAround {
-      0% {
-        transform: translate(0, 0) scale(1) rotate(0deg);
-      }
-      33% {
-        transform: translate(60px, -80px) scale(1.15) rotate(120deg);
-      }
-      66% {
-        transform: translate(-40px, 60px) scale(0.9) rotate(240deg);
-      }
-      100% {
-        transform: translate(40px, 30px) scale(1.05) rotate(360deg);
-      }
-    }
-
-    /* ===================================================
-       1. ANIMASI BORDER GRADIENT
-       =================================================== */
-    @keyframes borderGlow {
-      0% {
-        border-color: rgba(226, 183, 20, 0.4);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(226, 183, 20, 0.1);
-      }
-      50% {
-        border-color: rgba(56, 189, 248, 0.6);
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.25);
-      }
-      100% {
-        border-color: rgba(226, 183, 20, 0.4);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 15px rgba(226, 183, 20, 0.1);
-      }
-    }
-
-    .photo-card {
-      transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
-      animation: borderGlow 6s infinite ease-in-out;
-      backdrop-filter: blur(10px);
-    }
-
-    .photo-card:hover {
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.4);
-      border-color: var(--accent-cyan) !important;
-    }
-
-    .profile-img {
-      animation: profileBorderPulse 4s infinite alternate ease-in-out;
-      transition: transform 0.3s ease;
-    }
-
-    @keyframes profileBorderPulse {
-      0% {
-        box-shadow: 0 0 15px rgba(226, 183, 20, 0.3);
-        border-color: var(--accent-gold);
-      }
-      100% {
-        box-shadow: 0 0 30px rgba(56, 189, 248, 0.6);
-        border-color: var(--accent-cyan);
-      }
-    }
-
-    .profile-img:hover {
-      transform: scale(1.05) rotate(2deg);
-    }
-
-    /* ===================================================
-       2. ANIMASI SAAT DIKLIK (RIPPLE FEEDBACK)
-       =================================================== */
-    .btn:active, 
-    .photo-wrapper:active, 
-    .profile-img:active {
-      transform: scale(0.95) !important;
-      transition: transform 0.1s ease-out;
-    }
-
-    .photo-wrapper, .btn {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .ripple-effect {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.4);
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-      pointer-events: none;
-    }
-
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(40px, 30px); }
     }
 
     /* HEADER & PROFIL */
-    header {
-      text-align: center;
-      padding-bottom: 32px;
-      margin-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-    }
-
+    header { text-align: center; padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid var(--border); }
+    
     .profile-img {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--accent-gold);
-      margin: 0 auto 16px auto;
-      display: block;
-      box-shadow: 0 0 20px rgba(226, 183, 20, 0.25);
+      width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
+      border: 2px solid var(--accent-gold); margin: 0 auto 12px; display: block;
+      transition: transform 0.2s;
     }
+    h1 { font-size: 26px; font-weight: 700; }
+    .title-tag { color: var(--accent-gold); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-top: 4px; }
+    .bio { color: var(--text-muted); max-width: 500px; margin: 12px auto 0; font-size: 14px; }
 
-    h1 {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .title-tag {
-      color: var(--accent-gold);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: 600;
-      margin-top: 4px;
-    }
-
-    .bio {
-      color: var(--text-muted);
-      max-width: 550px;
-      margin: 14px auto 0 auto;
-      font-size: 14px;
-    }
-
-    /* SEKSI UMUM & BIODATA */
+    /* SEKSI INFO */
     .info-section {
-      background-color: var(--card-bg);
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      padding: 24px;
-      margin-bottom: 40px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
+      background-color: var(--card-bg); border-radius: 12px; padding: 20px;
+      margin-bottom: 32px; border: 1px solid var(--border);
     }
+    .info-title { font-size: 14px; color: var(--accent-gold); text-transform: uppercase; font-weight: 600; margin-bottom: 10px; }
+    
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+    .info-item { background: rgba(255,255,255,0.03); padding: 10px 12px; border-radius: 8px; }
+    .info-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; }
+    .info-value { font-size: 13px; font-weight: 500; margin-top: 2px; }
 
-    .info-title {
-      font-size: 14px;
-      color: var(--accent-gold);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    @media (min-width: 480px) {
-      .info-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .info-item {
-      background-color: rgba(255, 255, 255, 0.03);
-      padding: 12px 16px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .info-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .info-value {
-      font-size: 14px;
-      font-weight: 500;
-      margin-top: 2px;
-      color: var(--text-main);
-    }
-
-    /* TOMBOL KONTAK */
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    @media (min-width: 480px) {
-      .button-group {
-        flex-direction: row;
-      }
-    }
-
+    /* TOMBOL */
+    .button-group { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
     .btn {
-      flex: 1;
-      display: inline-block;
-      text-align: center;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.2s ease;
+      flex: 1; text-align: center; padding: 12px; border-radius: 8px;
+      font-size: 13px; font-weight: 600; text-decoration: none; min-width: 150px;
+      transition: transform 0.1s;
+    }
+    .btn-wa { background: var(--accent-cyan); color: #0a0c10; }
+    .btn-ig { border: 1px solid var(--border); color: var(--text-main); }
+    .btn:active { transform: scale(0.95); }
+
+    /* GALERI FOTO (Optimasi: Hapus Backdrop Filter & Animasi shadow berat) */
+    .section-title { font-size: 16px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* Animasi border ringan, tidak memberatkan HP */
+    @keyframes borderGlowLite {
+      0%, 100% { border-color: rgba(226, 183, 20, 0.3); }
+      50% { border-color: rgba(56, 189, 248, 0.5); }
     }
 
-    .btn-wa {
-      background-color: var(--accent-cyan);
-      color: #0a0c10;
-    }
-
-    .btn-ig {
-      background-color: transparent;
-      color: var(--text-main);
-      border: 1px solid var(--border);
-    }
-
-    .btn:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
-
-    .btn-ig:hover {
-      border-color: var(--accent-gold);
-      color: var(--accent-gold);
-    }
-
-    /* JUDUL GALERI */
-    .section-title {
-      font-size: 18px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* KARTU FOTO */
     .photo-card {
-      background-color: var(--card-bg);
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      overflow: hidden;
-      margin-bottom: 24px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-      width: 100%;
+      background-color: var(--card-bg); border-radius: 12px; margin-bottom: 20px;
+      overflow: hidden; display: flex; flex-direction: column;
+      animation: borderGlowLite 4s infinite ease-in-out;
+      border: 1px solid rgba(226, 183, 20, 0.3);
+      transform: translateZ(0); /* Anti Lag */
     }
+    
+    .photo-wrapper { width: 100%; height: 220px; background: #000; overflow: hidden; position: relative; }
+    .photo-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .photo-details { padding: 16px; }
+    .photo-tag { font-size: 11px; color: var(--accent-gold); text-transform: uppercase; font-weight: 600; margin-bottom: 4px; }
+    .photo-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .photo-desc { color: var(--text-muted); font-size: 13px; line-height: 1.5; }
 
-    .photo-wrapper {
-      width: 100%;
-      height: 260px;
-      background-color: #000;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .photo-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
-    }
-
-    .photo-card:hover .photo-wrapper img {
-      transform: scale(1.03);
-    }
-
-    .photo-details {
-      padding: 20px;
-      width: 100%;
-    }
-
-    .photo-tag {
-      font-size: 11px;
-      color: var(--accent-gold);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .photo-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #ffffff;
-    }
-
-    .photo-desc {
-      color: var(--text-muted);
-      font-size: 13.5px;
-      line-height: 1.6;
-    }
-
-    /* LAYOUT DESKTOP (> 640px) */
     @media (min-width: 640px) {
-      .photo-card {
-        flex-direction: row;
-        align-items: stretch;
-      }
-
-      .photo-card.reverse {
-        flex-direction: row-reverse;
-      }
-
-      .photo-wrapper {
-        width: 45%;
-        height: auto;
-        min-height: 240px;
-      }
-
-      .photo-details {
-        width: 55%;
-        padding: 28px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
+      .photo-card { flex-direction: row; }
+      .photo-wrapper { width: 45%; height: auto; min-height: 200px; }
+      .photo-details { width: 55%; display: flex; flex-direction: column; justify-content: center; }
     }
 
-    /* POP-UP MODAL ZOOM */
+    /* MODAL ZOOM */
     .modal-zoom {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      justify-content: center;
-      align-items: center;
-      backdrop-filter: blur(5px);
+      display: none; position: fixed; z-index: 9999; top: 0; left: 0;
+      width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+      justify-content: center; align-items: center;
     }
+    .modal-zoom img { max-width: 90%; max-height: 90%; border-radius: 8px; object-fit: contain; }
+    .close-modal { position: absolute; top: 15px; right: 20px; color: #fff; font-size: 35px; cursor: pointer; }
 
-    .modal-zoom img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 8px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.8);
-      object-fit: contain;
-      transition: transform 0.1s ease;
-    }
-
-    .close-modal {
-      position: absolute;
-      top: 15px; right: 20px;
-      color: #fff;
-      font-size: 35px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 10000;
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 12px;
-      margin-top: 48px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-    }
+    footer { text-align: center; color: var(--text-muted); font-size: 12px; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border); }
   </style>
 </head>
 <body>
 
-  <!-- ELEMEN BUBBLE ANIMASI LATAR BELAKANG -->
+  <!-- BACKGROUND ANIMASI RINGAN -->
   <div class="bg-bubbles">
     <div class="bubble bubble-1"></div>
     <div class="bubble bubble-2"></div>
     <div class="bubble bubble-3"></div>
-    <div class="bubble bubble-4"></div>
   </div>
 
   <div class="container">
@@ -503,185 +148,121 @@
     <header>
       <img src="1000309973.jpg" alt="Dario" class="profile-img">
       <h1>Dario</h1>
-      <p class="title-tag">Student, Tech Enthusiast & Photographer</p>
-      <p class="bio">
-        Menjelajahi keindahan tersembunyi lewat lensa. Berfokus pada fotografi alam, makro, teknologi, serta desain web modern.
-      </p>
+      <p class="title-tag">Student, Tech & Photographer</p>
+      <p class="bio">Eksplorasi visual lewat lensa. Berfokus pada alam, makro, dan pengembangan web modern.</p>
     </header>
 
-    <!-- PROFIL & BIODATA -->
+    <!-- INFO SEKSI -->
     <section class="info-section">
       <div class="info-title">Tentang Saya</div>
-      <p style="color: var(--text-muted); font-size: 14px; line-height: 1.6;">
-        Halo! Saya Dario. Seorang pelajar yang memiliki ketertarikan besar pada dunia olahraga renang, fotografi, teknologi, pemrograman, dan pengembangan web modern.
+      <p style="color: var(--text-muted); font-size: 13px;">
+        Halo! Saya Dario, pelajar dengan passion di renang, fotografi, dan web development.
       </p>
 
       <div class="info-grid">
-        <div class="info-item">
-          <div class="info-label">Nama Lengkap</div>
-          <div class="info-value">Dario</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Status</div>
-          <div class="info-value">Pelajar</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Telepon</div>
-          <div class="info-value">081390088618</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Fokus Utama</div>
-          <div class="info-value">Web Development & Photography</div>
-        </div>
+        <div class="info-item"><div class="info-label">Nama</div><div class="info-value">Dario</div></div>
+        <div class="info-item"><div class="info-label">Status</div><div class="info-value">Pelajar</div></div>
+        <div class="info-item"><div class="info-label">Telepon</div><div class="info-value">081390088618</div></div>
+        <div class="info-item"><div class="info-label">Fokus</div><div class="info-value">Web & Photo</div></div>
       </div>
 
       <div class="button-group">
-        <a href="https://wa.me/6281390088618" class="btn btn-wa" target="_blank">Hubungi via WhatsApp</a>
-        <a href="https://www.instagram.com/dardar.io?igsh=MXFrM2xibjJyZWM5bw==" class="btn btn-ig" target="_blank">Instagram (@dardar.io)</a>
+        <a href="https://wa.me/6281390088618" class="btn btn-wa" target="_blank">WhatsApp</a>
+        <a href="https://www.instagram.com/dardar.io?igsh=MXFrM2xibjJyZWM5bw==" class="btn btn-ig" target="_blank">Instagram</a>
       </div>
     </section>
 
-    <!-- GALERI FOTOGRAFI -->
+    <!-- GALERI -->
     <main>
       <h2 class="section-title">Selected Works</h2>
 
-      <!-- FOTO 1 -->
       <div class="photo-card">
-        <div class="photo-wrapper">
-          <img src="1000309761.jpg" alt="Bara di Ujung Ranting">
-        </div>
+        <div class="photo-wrapper"><img src="1000309761.jpg" alt="Bara di Ujung Ranting"></div>
         <div class="photo-details">
           <div class="photo-tag">Macro / Wildlife</div>
           <h3 class="photo-title">Bara di Ujung Ranting</h3>
-          <p class="photo-desc">
-            Merah menyala di tengah keheningan alam. Tangkapan makro ini mengabadikan detail struktur sayap transparan dan warna dramatis seekor capung merah yang sedang bertengger tenang di antara rimbunnya dedaunan.
-          </p>
+          <p class="photo-desc">Detail sayap dan warna dramatis capung merah yang hinggap tenang di antara dedaunan.</p>
         </div>
       </div>
 
-      <!-- FOTO 2 -->
       <div class="photo-card">
-        <div class="photo-wrapper">
-          <img src="1000312297.jpg" alt="Dinamika di Lapangan Hijau">
-        </div>
+        <div class="photo-wrapper"><img src="1000312297.jpg" alt="Dinamika Lapangan"></div>
         <div class="photo-details">
           <div class="photo-tag">Sports & Action</div>
-          <h3 class="photo-title">Dinamika di Lapangan Hijau</h3>
-          <p class="photo-desc">
-            Sebuah momen intensitas tinggi dan fokus penuh. Pembekuan gerakan saat perebutan bola menampilkan ekspresi ketegangan, strategi, dan semangat olahraga dalam satu bingkai yang hidup.
-          </p>
+          <h3 class="photo-title">Dinamika Lapangan</h3>
+          <p class="photo-desc">Momen perebutan bola yang menangkap intensitas, ketegangan, dan semangat olahraga.</p>
         </div>
       </div>
 
-      <!-- FOTO 3 -->
       <div class="photo-card">
-        <div class="photo-wrapper">
-          <img src="1000311967.jpg" alt="Tarian Keemasan">
-        </div>
+        <div class="photo-wrapper"><img src="1000311967.jpg" alt="Tarian Keemasan"></div>
         <div class="photo-details">
           <div class="photo-tag">Nature / Aquatic</div>
           <h3 class="photo-title">Tarian Keemasan</h3>
-          <p class="photo-desc">
-            Simbiosis warna dan ketenangan. Gerakan dinamis kawanan ikan koi emas berkilauan menembus kegelapan air telaga, menciptakan kontras visual yang elegan serta ketenangan yang hipnotis.
-          </p>
+          <p class="photo-desc">Gerakan dinamis koi emas yang menciptakan kontras elegan dan ketenangan di air gelap.</p>
         </div>
       </div>
 
-      <!-- FOTO 4 -->
       <div class="photo-card">
-        <div class="photo-wrapper">
-          <img src="1000312308.jpg" alt="Penerbang Harapan">
-        </div>
+        <div class="photo-wrapper"><img src="1000312308.jpg" alt="Penerbang Harapan"></div>
         <div class="photo-details">
           <div class="photo-tag">Flora / Macro</div>
           <h3 class="photo-title">Penerbang Harapan</h3>
-          <p class="photo-desc">
-            Kelembutan yang menyimpan daya tahan. Foto makro ini memperlihatkan benih liar berbulu halus yang bersiap tertiup angin—sebuah simbol perjalanan baru dan keindahan mikro yang kerap terlewatkan.
-          </p>
+          <p class="photo-desc">Benih liar bersiap tertiup angin—simbol perjalanan baru dan keindahan mikro yang estetik.</p>
         </div>
       </div>
 
-      <!-- FOTO 5 -->
       <div class="photo-card">
-        <div class="photo-wrapper">
-          <img src="1000309764.jpg" alt="Kamuflase Sunyi">
-        </div>
+        <div class="photo-wrapper"><img src="1000309764.jpg" alt="Kamuflase Sunyi"></div>
         <div class="photo-details">
           <div class="photo-tag">Wildlife / Macro</div>
           <h3 class="photo-title">Kamuflase Sunyi</h3>
-          <p class="photo-desc">
-            Keharmonisan warna bumi. Kupu-kupu cokelat yang beristirahat di atas kayu berlumut menyatu sempurna dengan habitatnya, memperlihatkan estetika alami dari adaptasi dan ketenangan hutan.
-          </p>
+          <p class="photo-desc">Kupu-kupu cokelat yang menyatu sempurna dengan habitat alaminya di atas kayu berlumut.</p>
         </div>
       </div>
 
-      <!-- FOTO 6 -->
       <div class="photo-card">
-        <div class="photo-wrapper">
-          <img src="1000309764.jpg" alt="Kolaborasi Tanpa Batas">
-        </div>
+        <div class="photo-wrapper"><img src="1000309764.jpg" alt="Kolaborasi Tanpa Batas"></div>
         <div class="photo-details">
           <div class="photo-tag">Extreme Macro</div>
           <h3 class="photo-title">Kolaborasi Tanpa Batas</h3>
-          <p class="photo-desc">
-            Drama di balik helaian rumput. Ditembak dengan teknik makro ekstrem, foto ini menangkap momen luar biasa kolaborasi para semut rangrang saat mempertahankan teritori dan bertahan hidup bersama.
-          </p>
+          <p class="photo-desc">Potret makro kolaborasi semut rangrang dalam mempertahankan koloni dan teritorinya.</p>
         </div>
       </div>
 
-      <!-- FOTO 7 -->
       <div class="photo-card">
-        <div class="photo-wrapper">
-          <img src="1000312307.jpg" alt="Tatapan Zamrud">
-        </div>
+        <div class="photo-wrapper"><img src="1000312307.jpg" alt="Tatapan Zamrud"></div>
         <div class="photo-details">
           <div class="photo-tag">Animal Portrait</div>
           <h3 class="photo-title">Tatapan Zamrud</h3>
-          <p class="photo-desc">
-            Pencahayaan alami yang menyorot ketajaman mata hijau sang kucing. Foto ini memancarkan aura misterius, ketenangan, dan karakter kuat dari sang pemangsa kecil.
-          </p>
+          <p class="photo-desc">Sorot mata hijau tajam yang memancarkan aura misterius dan karakter kuat sang pemangsa.</p>
         </div>
       </div>
 
-      <!-- FOTO 8 -->
       <div class="photo-card">
-        <div class="photo-wrapper">
-          <img src="1000312309.jpg" alt="Petunjuk dalam Sunyi">
-        </div>
+        <div class="photo-wrapper"><img src="1000312309.jpg" alt="Petunjuk dalam Sunyi"></div>
         <div class="photo-details">
           <div class="photo-tag">Street / Urban</div>
           <h3 class="photo-title">Petunjuk dalam Sunyi</h3>
-          <p class="photo-desc">
-            Objek-objek fungsional perkotaan yang membisu di tepi danau. Komposisi siluet dan sudut pandang yang unik mengubah rambu taman biasa menjadi karya fotografi ruang publik yang artistik.
-          </p>
+          <p class="photo-desc">Siluet rambu taman yang diubah menjadi karya fotografi ruang publik yang artistik.</p>
         </div>
       </div>
 
-      <!-- FOTO 9 -->
       <div class="photo-card">
-        <div class="photo-wrapper">
-          <img src="burung.jpg" alt="Selingan di Atas Besi">
-        </div>
+        <div class="photo-wrapper"><img src="burung.jpg" alt="Selingan di Atas Besi"></div>
         <div class="photo-details">
           <div class="photo-tag">Minimalist / Avian</div>
           <h3 class="photo-title">Selingan di Atas Besi</h3>
-          <p class="photo-desc">
-            Aesthetic bernuansa minimalis. Tiga ekor burung gereja hinggap sejajar di atas konstruksi besi dengan latar langit terang, menciptakan komposisi bentuk geometris dan ritme visual yang menenangkan.
-          </p>
+          <p class="photo-desc">Burung gereja berjejer membentuk komposisi geometris dengan nuansa estetik minimalis.</p>
         </div>
       </div>
 
-      <!-- FOTO 10 -->
       <div class="photo-card">
-        <div class="photo-wrapper">
-          <img src="sungai.jpg" alt="Ketenangan di sebuah sungai yang deras">
-        </div>
+        <div class="photo-wrapper"><img src="sungai.jpg" alt="Ketenangan Sungai"></div>
         <div class="photo-details">
           <div class="photo-tag">Water / Wildlife</div>
-          <h3 class="photo-title">Ketenangan di sebuah sungai yang deras</h3>
-          <p class="photo-desc">
-            ketenagan tidak bisa di gambarkan hanya dengan cerita tetapi harus di rasakan dan di lihat secara langsung
-          </p>
+          <h3 class="photo-title">Ketenangan Sungai</h3>
+          <p class="photo-desc">Ketenangan alam yang tak cukup sekadar diceritakan, namun harus dirasakan langsung.</p>
         </div>
       </div>
 
@@ -693,64 +274,29 @@
 
   </div>
 
-  <!-- POP-UP MODAL ZOOM -->
+  <!-- MODAL ZOOM -->
   <div id="modalZoom" class="modal-zoom">
     <span class="close-modal">&times;</span>
-    <img id="imgZoomFull" src="" alt="Zoomed Photo">
+    <img id="imgZoomFull" src="" alt="Zoom">
   </div>
 
-  <!-- JAVASCRIPT LENGKAP -->
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      
-      // 1. Fitur Ripple Click
-      document.querySelectorAll('.photo-wrapper, .btn, .profile-img').forEach(element => {
-        element.addEventListener('click', function (e) {
-          const circle = document.createElement('span');
-          const diameter = Math.max(this.clientWidth, this.clientHeight);
-          const radius = diameter / 2;
-
-          const rect = this.getBoundingClientRect();
-          circle.style.width = circle.style.height = `${diameter}px`;
-          circle.style.left = `${e.clientX - rect.left - radius}px`;
-          circle.style.top = `${e.clientY - rect.top - radius}px`;
-          circle.classList.add('ripple-effect');
-
-          const existingRipple = this.querySelector('.ripple-effect');
-          if (existingRipple) {
-            existingRipple.remove();
-          }
-
-          this.appendChild(circle);
-
-          setTimeout(() => {
-            circle.remove();
-          }, 600);
-        });
-      });
-
-      // 2. Fitur Modal Image Zoom
+    document.addEventListener("DOMContentLoaded", () => {
+      // Fitur Zoom (Event delegation agar JS lebih ringan)
       const modal = document.getElementById("modalZoom");
       const modalImg = document.getElementById("imgZoomFull");
-      const closeBtn = document.querySelector(".close-modal");
 
-      const allImages = document.querySelectorAll("img");
-
-      allImages.forEach(img => {
-        if (img.id === "imgZoomFull") return;
-
-        img.style.cursor = "pointer";
-        img.addEventListener("click", function () {
+      document.body.addEventListener("click", (e) => {
+        // Jika klik gambar di dalam gallery
+        if (e.target.tagName === 'IMG' && e.target.closest('.photo-wrapper')) {
           modal.style.display = "flex";
-          modalImg.src = this.src;
-        });
+          modalImg.src = e.target.src;
+        }
+        // Jika klik tombol close atau background modal
+        if (e.target.classList.contains("close-modal") || e.target === modal) {
+          modal.style.display = "none";
+        }
       });
-
-      closeBtn.addEventListener("click", () => modal.style.display = "none");
-      modal.addEventListener("click", (e) => {
-        if (e.target !== modalImg) modal.style.display = "none";
-      });
-
     });
   </script>
 
